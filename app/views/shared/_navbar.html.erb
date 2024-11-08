@@ -6,17 +6,6 @@
       <% end %>
     </div>
 
-    <% if user_signed_in? %>
-      <%= simple_form_for :search, url: root_path, method: :get, html: { class: "d-flex align-items-center" } do |f| %>
-        <div class="form-group me-2 flex-grow-1">
-          <%= f.input :query, input_html: { class: "form-control", placeholder: "serial number", style: "height: 100%;" }, label: false %>
-        </div>
-        <button name="button" type="submit" class="btn btn-primary" style="height: 100%;">
-          Search
-        </button>
-      <% end %>
-    <% end %>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>

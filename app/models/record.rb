@@ -1,5 +1,7 @@
 class Record < ApplicationRecord
   belongs_to :user
+  belongs_to :device
+
   validates :serial_number, :ticket_number, :device_type, :customer_problem, :lla_diagnose, :action, :customer, presence: true
   validates :ticket_number, uniqueness: true
   # validates :device_type, inclusion: { in: %w(Laptop Camera Tablet Smartphone) }
