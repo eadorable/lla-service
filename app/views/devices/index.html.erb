@@ -1,0 +1,36 @@
+
+<div class="container mt-4 min-vh-100">
+
+  <div class="text-center mb-4">
+    <% if @devices.present? %>
+      <h1 class="h1--text roboto-black-italic"><%= @devices.count %> <%= @devices.count > 1 ? "devices" : "device" %> found</h1>
+    <% end %>
+  </div>
+
+  <% if @devices.present? %>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr class="text-center">
+            <th scope="col">Serial</th>
+            <th scope="col">Device</th>
+            <th scope="col">Customer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @devices.each do |device| %>
+            <tr>
+              <td><%= link_to device.serial_number, device_records_path(device.id) %></td>
+              <td><%= device.device_type %></td>
+              <td><%= device.customer %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p>No devices available.</p>
+  <% end %>
+
+<%= link_to "Add device", new_device_path, class: "btn btn-primary" %>
+</div>
