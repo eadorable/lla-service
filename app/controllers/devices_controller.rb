@@ -19,7 +19,26 @@ class DevicesController < ApplicationController
 
   def show
     @device = Device.find(params[:id])
-    
+
+  end
+
+  def edit
+    @device = Device.find(params[:id])
+  end
+
+  def update
+    @device = Device.find(params[:id])
+    if @device.update(device_params)
+      redirect_to devices_path, notice: 'Device was successfully updated.'
+    else
+      render :edit, notice: 'Device could not be updated, check the form for errors'
+    end
+  end
+
+  def destroy
+    @device = Device.find(params[:id])
+    @device.destroy
+    redirect_to devices_path, notice: 'Device was successfully deleted.'
   end
 
   private

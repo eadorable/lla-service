@@ -1,2 +1,8 @@
 <h1>I am record index</h1>
-<%=@records%>
+<%@records.each do |record|%>
+  <p><%= record.serial_number %></p>
+  <p><%= record.device_type %></p>
+  <p><%= record.customer %></p>
+
+<%end%>
+
