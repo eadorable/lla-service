@@ -23,12 +23,15 @@ class RecordsController < ApplicationController
     @device = Device.find(params[:device_id])
     @record.device_id = @device.id
 
-   # @record.user_id = current_user.id
+    @record.user_id = current_user.id
 
     # @device.id = @record.device_id # Assign the current device to the record
+
     if @record.save
-      redirect_to device_path(@device), notice: 'Record was successfully added.'
+
+      redirect_to devices_path, notice: 'Record was successfully added.'
     else
+
       render :new, notice: 'Record could not be added, check the form for errors'
     end
 
@@ -39,7 +42,7 @@ class RecordsController < ApplicationController
   private
 
   def record_params
-    params.require(:record).permit(:record_date, :ticket_number, :customer_problem, :lla_diagnose, :action, :user_id, :device_id, :serial_number)
+    params.require(:record).permit(:record_date, :ticket_number, :customer_problem, :lla_diagnose, :action, :user_id, :device_id)
   end
 
 end

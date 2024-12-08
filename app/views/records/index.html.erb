@@ -1,10 +1,12 @@
 <h1>I am record index</h1>
 <%@records.each do |record|%>
+  <h2><%= record.device.device_type %></h2>
+  <p><%= record.device.serial_number %></p>
   <p><%= record.ticket_number %></p>
   <p><%= record.customer_problem %></p>
   <p><%= record.lla_diagnose %></p>
   <%= record.action %>
-
-
 <%end%>
+
 <%= link_to "Add record", new_device_record_path, class: "btn btn-primary" %>
+<%= link_to "List of Devices", devices_path, class: "btn btn-primary" %>
