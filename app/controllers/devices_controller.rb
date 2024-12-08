@@ -19,7 +19,7 @@ class DevicesController < ApplicationController
 
   def show
     @device = Device.find(params[:id])
-
+    @record = Record.new
   end
 
   def edit
