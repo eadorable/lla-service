@@ -22,7 +22,7 @@
           <% @devices.each do |device| %>
 
             <tr>
-              <td><%= link_to device.serial_number, device_records_path(device.id) %></td>
+              <td><%= link_to device.serial_number, device_path(device.id) %></td>
               <td><%= device.device_type %></td>
               <td><%= device.customer.upcase %></td>
               <td><%= link_to "Edit", edit_device_path(device) %> <%= link_to "Delete", device_path(device), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %></td>

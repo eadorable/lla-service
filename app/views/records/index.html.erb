@@ -1,8 +1,7 @@
 <h1>I am record index</h1>
 <%@records.each do |record|%>
-  <h2><%= record.device.device_type %></h2>
+  <h2><%= record.ticket_number %></h2>
   <p><%= record.device.serial_number %></p>
-  <p><%= record.ticket_number %></p>
   <p><%= record.customer_problem %></p>
   <p><%= record.lla_diagnose %></p>
   <%= record.action %>
