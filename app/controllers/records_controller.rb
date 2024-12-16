@@ -25,10 +25,8 @@ class RecordsController < ApplicationController
 
     @record.user_id = current_user.id
 
-    # @device.id = @record.device_id # Assign the current device to the record
-
     if @record.save
-      redirect_to devices_path, notice: 'Record was successfully added.'
+      redirect_to device_path(@device), notice: 'Record was successfully added.'
     else
 
       render :new, notice: 'Record could not be added, check the form for errors'
@@ -45,6 +43,13 @@ class RecordsController < ApplicationController
     else
       render :edit, notice: 'Record could not be updated, check the form for errors'
     end
+  end
+
+  def destroy
+    @record = Record.find(params[:id])
+    @device = Device.find(params[:device_id])
+    @record.destroy
+    redirect_to device_path(@device), notice: 'Record was successfully deleted.'
   end
 
   private

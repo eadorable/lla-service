@@ -31,7 +31,12 @@
                       <td><%= device_record.customer_problem %></td>
                       <td><%= device_record.lla_diagnose %></td>
                       <td><%= device_record.action %></td>
-                      <td><%= link_to "Edit",  edit_device_record_path(@device, device_record) %></td>
+
+                      <td>
+                        <%= link_to raw('<i class="fas fa-pencil-alt"></i>'), edit_device_record_path(@device, device_record), title: "Edit", class: "btn btn-link" %>
+                        <%= link_to raw('<i class="fas fa-trash-alt"></i>'), device_record_path(@device, device_record), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete?" }, title: "Delete", class: "btn btn-link text-danger" %>
+                      </td>
+
                     </tr>
                   <% end %>
                 </tbody>
