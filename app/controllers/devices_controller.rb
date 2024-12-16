@@ -1,6 +1,11 @@
 class DevicesController < ApplicationController
   def index
     @devices = Device.all
+    if params[:query].present?
+      sql_subquery = "serial_number ILIKE :query OR customer ILIKE :query OR device_type ILIKE :query"
+      @devices = @devices.where(sql_subquery, query: "%#{params[:query]}%")
+      # @devices = @devices.where('serial_number ILIKE ?', "%#{params[:query]}%")
+    end
   end
 
   def new

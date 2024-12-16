@@ -42,10 +42,10 @@
                 </tbody>
               </table>
             </div>
-            <p><%= link_to "Add record", new_device_record_path(@device), class: "btn btn-primary" %> <%= link_to "Home", devices_path, class: "btn btn-primary" %></p>
+            <p><%= link_to "Add record", new_device_record_path(@device), class: "btn btn-primary" %> <%= link_to "Back", devices_path, class: "btn btn-primary" %></p>
           <% else %>
             <p class="text-center mt-3">No records available.</p>
-            <p><%= link_to "Add record", new_device_record_path(@device), class: "btn btn-primary" %> <%= link_to "Home", devices_path, class: "btn btn-primary" %></p>
+            <p><%= link_to "Add record", new_device_record_path(@device), class: "btn btn-primary" %> <%= link_to "Back", devices_path, class: "btn btn-primary" %></p>
 
           <% end %>
         </div>
