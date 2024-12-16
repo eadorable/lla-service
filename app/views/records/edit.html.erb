@@ -1,0 +1,32 @@
+<div class="container mt-4 min-vh-100">
+  <div class="text-center mb-4">
+    <h1>I am record edit</h1>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <%= form_with(model: [@device, @record], url: device_record_path(@device, @record), method: :patch) do |form| %>
+
+        <div class="mb-3 text-black">
+          <%= form.label :ticket_number, "Ticket Number", class: 'form-label' %>
+          <%= form.text_field :ticket_number, class: 'form-control', rows: 4 %>
+
+          <%= form.label :customer_problem, "Customer Problem", class: 'form-label' %>
+          <%= form.text_area :customer_problem, class: 'form-control', rows: 4 %>
+
+          <%= form.label :lla_diagnose, "LLA Diagnosis", class: 'form-label' %>
+          <%= form.text_area :lla_diagnose, class: 'form-control', rows: 4 %>
+
+
+          <%= form.label :action, "Action", class: 'form-label' %>
+          <%= form.text_area :action, class: 'form-control', rows: 4 %>
+        </div>
+
+        <div class="text-center">
+          <%= form.submit 'Save', class: 'btn btn-primary' %>
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>
