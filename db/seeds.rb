@@ -2,51 +2,26 @@
 
 # Assuming you already have at least one user in the database.
 # If not, you can create one as well.
-user = User.first || User.create!(email: 'example@example.com', password: 'password')  # Adjust this to create a user if needed
+puts "Creating sample records..."
+puts "Destroying all existing records..."
+Device.destroy_all
 
-# Create sample records and associate them with the user
-Record.create!(
-  record_date: Date.today,
-  serial_number: "SN123456789",
-  ticket_number: "TICKET001",
-  device_type: "Laptop",
-  customer_problem: "Screen flickering",
-  lla_diagnose: "Checked cable connections and updated drivers.",
-  action: "Replaced display cable.",
-  user: user # Associate with the user
-)
+user = User.first || User.create!(email: 'e.adorable@lla.de', password: 'password')  # Adjust this to create a user if needed
 
-Record.create!(
-  record_date: Date.today - 1.day,
-  serial_number: "SN987654321",
-  ticket_number: "TICKET002",
-  device_type: "Camera",
-  customer_problem: "Battery not charging",
-  lla_diagnose: "Tested battery and charging port.",
-  action: "Replaced battery.",
-  user: user
-)
+customers = ["DAIO Engineering", "BT Systems", "Eagle Vizion", "Valvan", "Ionia", "Boulegraf"]
+device_types = ["MSI1.9", "MSI1.7", "MPL", "HSI", "MSI+RGB"]
 
-Record.create!(
-  record_date: Date.today - 2.days,
-  serial_number: "SN112233445",
-  ticket_number: "TICKET003",
-  device_type: "Tablet",
-  customer_problem: "Slow performance",
-  lla_diagnose: "Cleared cache and checked for background processes.",
-  action: "Performed factory reset.",
-  user: user
-)
+1000.times do
+  device_type = device_types.sample
+  serial_number = "H#{rand(1000..999_999_999)}" # Random serial number
+  customer = customers.sample
 
-Record.create!(
-  record_date: Date.today - 3.days,
-  serial_number: "SN556677889",
-  ticket_number: "TICKET004",
-  device_type: "Smartphone",
-  customer_problem: "Wi-Fi disconnecting",
-  lla_diagnose: "Checked network settings and reset router.",
-  action: "Replaced Wi-Fi antenna.",
-  user: user
-)
+  Device.create!(
+    device_type: device_type,
+    serial_number: serial_number,
+    customer: customer,
+    user: user # Associate with the user
+  )
+end
 
 puts "Sample records created successfully!"
