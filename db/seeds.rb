@@ -10,17 +10,20 @@ user = User.first || User.create!(email: 'e.adorable@lla.de', password: 'passwor
 
 customers = ["DAIO Engineering", "BT Systems", "Eagle Vizion", "Valvan", "Ionia", "Boulegraf"]
 device_types = ["MSI1.9", "MSI1.7", "MPL", "HSI", "MSI+RGB"]
+FOV = [1000, 100, 2000, 1300, 1100, 900, 700, 500, 300, 1500]
 
 1000.times do
   device_type = device_types.sample
   serial_number = "H#{rand(1000..999_999_999)}" # Random serial number
   customer = customers.sample
+  fov = FOV.sample
 
   Device.create!(
     device_type: device_type,
     serial_number: serial_number,
     customer: customer,
-    user: user # Associate with the user
+    user: user, # Associate with the user
+    fov: fov
   )
 end
 
