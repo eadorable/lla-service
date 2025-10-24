@@ -27,7 +27,7 @@
                   <% @device_records.each do |device_record| %>
 
                     <tr>
-                      <td><%= device_record.created_at.to_date%></td>
+                      <td><%= device_record.record_date.to_date%></td>
                       <td><%= device_record.ticket_number %></td>
                       <td><%= device_record.customer_problem %></td>
                       <td><%= device_record.lla_diagnose %></td>

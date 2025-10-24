@@ -18,20 +18,24 @@ class RecordsController < ApplicationController
     @device = Device.find(params[:device_id])
   end
 
-  def create
-    @record = Record.new(record_params)
-    @device = Device.find(params[:device_id])
-    @record.device_id = @device.id
+def create
+  # Sanitize ticket_number to remove null bytes. for some reason they are being added.for example: 9217-25
+  # params[:record][:ticket_number] = params[:record][:ticket_number].gsub("\0", "") if params[:record][:ticket_number].present?
+  
+  @record = Record.new(record_params)
+  @device = Device.find(params[:device_id])
+  @record.device_id = @device.id
+  @record.user_id = current_user.id
 
-    @record.user_id = current_user.id
+  # Add this line to inspect the ticket_number
+  # Rails.logger.info "Ticket number input: #{@record.ticket_number.inspect}"
 
-    if @record.save
-      redirect_to device_path(@device), notice: 'Record was successfully added.'
-    else
-
-      render :new, notice: 'Record could not be added, check the form for errors'
-    end
+  if @record.save
+    redirect_to device_path(@device), notice: 'Record was successfully added.'
+  else
+    render :new, notice: 'Record could not be added, check the form for errors'
   end
+end
 
   def update
     @record = Record.find(params[:id])

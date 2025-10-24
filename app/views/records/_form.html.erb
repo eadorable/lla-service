@@ -1,0 +1,47 @@
+<div class="container mt-4 min-vh-100">
+  <div class="text-center mb-4">
+    <!-- 
+      Ternary operator: checks if @record is a new record
+      - If new_record? is TRUE: displays "Add New Record"
+      - If new_record? is FALSE: displays "Edit Record"
+    -->
+    <h1><%= @record.new_record? ? "Add New Record" : "Edit Record" %></h1>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <!-- 
+        form_with automatically determines HTTP method based on @record state:
+        - If @record.new_record? is TRUE: uses POST method (creates new record)
+        - If @record.new_record? is FALSE: uses PATCH method (updates existing record)
+        
+        model: [@device, @record] tells Rails to use these objects for routing
+        local: true prevents Rails from using Turbo/AJAX
+      -->
+      <%= form_with(model: [@device, @record], local: true) do |form| %>
+        <div class="mb-3 text-black">
+          <%= form.label :ticket_number, "Ticket Number", class: 'form-label' %>
+          <%= form.text_field :ticket_number, class: 'form-control', rows: 4 %>
+
+          <%= form.label :customer_problem, "Customer Problem", class: 'form-label' %>
+          <%= form.text_area :customer_problem, class: 'form-control', rows: 4 %>
+
+          <%= form.label :lla_diagnose, "LLA Diagnosis", class: 'form-label' %>
+          <%= form.text_area :lla_diagnose, class: 'form-control', rows: 4 %>
+
+          <%= form.label :action, "Action", class: 'form-label' %>
+          <%= form.text_area :action, class: 'form-control', rows: 4 %>
+
+          <%= form.label :record_date, "Record Date", class: 'form-label' %>
+          <%= form.date_field :record_date, class: 'form-control' %>
+
+        </div>
+
+        <div class="text-center">
+          <!-- Submit button text stays the same for both new and edit -->
+          <%= form.submit 'Save', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
