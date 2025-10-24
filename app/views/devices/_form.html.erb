@@ -1,0 +1,12 @@
+<%= simple_form_for(device) do |f| %>
+  <% device_type = %w[MSI1.7 MSI1.9 MPL-24V MPL RGB MSI+RGB] %>
+
+  <%= f.input :serial_number, label_html: { class: 'text--form' } %>
+  <%= f.input :customer, label_html: { class: 'text--form' } %>
+  <%= f.input :device_type, collection: device_type, label_html: { class: 'text--form' } %>
+  <%= f.input :fov, input_html: { type: 'number' }, label_html: { class: 'text--form' } %>
+
+  <div class="text-center">
+    <%= f.submit "Save", class: "btn btn-primary mb-4" %>
+  </div>
+<% end %>

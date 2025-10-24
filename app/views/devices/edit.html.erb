@@ -1,18 +1,5 @@
 <div class="container text--form mt-4">
-  <h1 class="text-center">NEW DEVICE</h1>
+  <h1 class="text-center">EDIT DEVICE</h1>
 
-  <%= simple_form_for(@device, method: :patch) do |f| %>
-    <% device_type = %w[MSI MPL RGB MSI+RGB] %>
-
-    <%= f.input :serial_number, label_html: { class: 'text--form' } %>
-
-    <%= f.input :customer, label_html: { class: 'text--form' } %>
-    <%= f.input :device_type, collection: device_type, label_html: { class: 'text--form' } %>
-    <%= f.input :fov, label_html: { class: 'text--form' } %>
-
-    <div class="text-center">
-      <%= f.submit "Save", class: "btn btn-primary mb-4" %>
-    </div>
-
-  <% end %>
+  <%= render 'form', device: @device %>
 </div>
