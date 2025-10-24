@@ -12,7 +12,7 @@ customers = ["DAIO Engineering", "BT Systems", "Eagle Vizion", "Valvan", "Ionia"
 device_types = ["MSI1.9", "MSI1.7", "MPL", "HSI", "MSI+RGB"]
 FOV = [1000, 100, 2000, 1300, 1100, 900, 700, 500, 300, 1500]
 
-1000.times do
+100.times do
   device_type = device_types.sample
   serial_number = "H#{rand(1000..999_999_999)}" # Random serial number
   customer = customers.sample
