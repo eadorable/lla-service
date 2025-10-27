@@ -1,12 +1,17 @@
 class DevicesController < ApplicationController
-  def index
+def index
+    # Start with all devices
     @devices = Device.all
+
+    # If a search query is present, use the search scope
     if params[:query].present?
-      sql_subquery = "serial_number ILIKE :query OR customer ILIKE :query OR device_type ILIKE :query"
-      @devices = @devices.where(sql_subquery, query: "%#{params[:query]}%")
-      # @devices = @devices.where('serial_number ILIKE ?', "%#{params[:query]}%")
+      # Use the `search` scope defined in the Device model
+      # This joins with records and searches across:
+      # - Device fields: serial_number, customer, device_type
+      # - Record field: ticket_number
+      @devices = @devices.search(params[:query])
     end
-  end
+end
 
   def new
     @device = Device.new
