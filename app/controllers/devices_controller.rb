@@ -1,5 +1,4 @@
 class DevicesController < ApplicationController
-
 def index
   # If a search query is present, use the search scope
   if params[:query].present?

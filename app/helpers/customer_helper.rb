@@ -56,6 +56,7 @@ module CustomerHelper
     "Université de Liège",
     "VALVAN, Menen",
     "VOIGT SALUS. Rechtsanwälte und Steuerberater",
-    "Wastex Technologies S.L."
+    "Wastex Technologies S.L.",
+    "LLA Instrument GmbH"
   ].freeze
 end

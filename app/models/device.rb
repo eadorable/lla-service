@@ -5,10 +5,12 @@ class Device < ApplicationRecord
   validates :device_type, :serial_number, :customer, :fov, presence: true
   validates :serial_number, uniqueness: true
 
-  # Scope to search devices by serial_number, customer, device_type, or related record's ticket_number
+  scope :search, ->(query) {
+    # Use left_joins to include devices with or without records
+    devices = Device.left_joins(:records).distinct
 
-    scope :search, ->(query) {
-    joins(:records).distinct.where(
+    # Search in device fields OR in the associated records' ticket_number
+    devices.where(
       "devices.serial_number ILIKE :query 
        OR devices.customer ILIKE :query 
        OR devices.device_type ILIKE :query 
@@ -16,7 +18,5 @@ class Device < ApplicationRecord
       query: "%#{query}%"
     )
   }
-
-
 
 end
