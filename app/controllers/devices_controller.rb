@@ -1,16 +1,18 @@
 class DevicesController < ApplicationController
-def index
-    # Start with all devices
-    @devices = Device.all
 
-    # If a search query is present, use the search scope
-    if params[:query].present?
-      # Use the `search` scope defined in the Device model
-      # This joins with records and searches across:
-      # - Device fields: serial_number, customer, device_type
-      # - Record field: ticket_number
-      @devices = @devices.search(params[:query])
+def index
+  # If a search query is present, use the search scope
+  if params[:query].present?
+    @devices = Device.search(params[:query])
+  else
+    # If no search query and "show_all" is present, show all devices
+    if params[:show_all].present?
+      @devices = Device.all
+    else
+      # If no search and no "show_all", show an empty array
+      @devices = []
     end
+  end
 end
 
   def new

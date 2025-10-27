@@ -1,64 +1,65 @@
-
 <div class="container mt-4 min-vh-100">
 
   <div class="row justify-content-center">
     <div class="col-sm-8 my-3">
+
+      <!-- Search form -->
       <%= form_with url: devices_path, method: :get, class: "d-flex" do %>
         <%= text_field_tag :query,
               params[:query],
               class: "form-control",
-              placeholder: "Type a device number, device type or customer name"
+              placeholder: "Type a device number, device type, customer name or ticket number..."
           %>
-        <%= submit_tag "Search", name: "", class: "btn btn-primary" %>
+        <%= submit_tag "Search", name: "", class: "btn btn-primary" %> 
       <% end %>
-    </div>
-  </div>
 
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-
-      <div class="text-center mb-4">
-        <% if @devices.present? %>
-          <h1 class="h1--text roboto-black-italic"><%= @devices.count %> <%= @devices.count > 1 ? "devices" : "device" %> found</h1>
-        <% end %>
+            <!-- Show All button -->
+      <div class="text-center mb-3">
+        <%= link_to "Show All Devices", devices_path(show_all: "true"), class: "btn btn-outline-primary" %>
       </div>
-
-      <% if @devices.present? %>
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped">
-            <thead>
-              <tr class="text-center">
-                <th scope="col">Device Number</th>
-                <th scope="col">Device Type</th>
-                <th scope="col">Customer</th>
-
-              </tr>
-            </thead>
-            <tbody>
-              <% @devices.each do |device| %>
-
-                <tr>
-                  <td><%= link_to device.serial_number, device_path(device.id) %></td>
-                  <td><%= device.device_type %></td>
-                  <td><%= device.customer.upcase %></td>
-                  <td>
-
-                    <%= link_to raw('<i class="fas fa-pencil-alt"></i>'), edit_device_path(device), title: "Edit", class: "btn btn-link" %>
-
-                    <%= link_to raw('<i class="fas fa-trash-alt"></i>'), device_path(device), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete?" }, title: "Delete", class: "btn btn-link text-danger" %>
-
-                  </td>
-                </tr>
-
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      <% else %>
-        <p>No devices available.</p>
-      <% end %>
-
-      <%= link_to "Add device", new_device_path, class: "btn btn-primary" %>
+      
     </div>
   </div>
+<!-- Display results count only if devices are found -->
+<div class="text-center mb-4">
+  <% if @devices.present? %>
+    <h1 class="h1--text roboto-black-italic"><%= @devices.count %> <%= @devices.count > 1 ? "devices" : "device" %> found</h1>
+  <% end %>
 </div>
+
+<!-- Display table only if devices are present -->
+<% if @devices.present? %>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr class="text-center">
+          <th scope="col">Device Number</th>
+          <th scope="col">Device Type</th>
+          <th scope="col">Customer</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @devices.each do |device| %>
+          <tr>
+            <td><%= link_to device.serial_number, device_path(device.id) %></td>
+            <td><%= device.device_type %></td>
+            <td><%= device.customer.upcase %></td>
+            <td>
+              <!-- Edit button -->
+              <%= link_to raw('<i class="fas fa-pencil-alt"></i>'), edit_device_path(device), title: "Edit", class: "btn btn-link" %>
+
+              <!-- Delete button with confirmation -->
+              <%= link_to raw('<i class="fas fa-trash-alt"></i>'), device_path(device), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete?" }, title: "Delete", class: "btn btn-link text-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% elsif params[:show_all].present? %>
+  <p class="alert alert-info">No devices found.</p>
+<% end %>
+
+<!-- Add device button (always visible) -->
+<%= link_to "Add device", new_device_path, class: "btn btn-primary" %>
