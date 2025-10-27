@@ -1,11 +1,19 @@
 <%= simple_form_for(device) do |f| %>
-  <% device_type = %w[MSI1.7 MSI1.9 MPL-24V MPL RGB MSI+RGB] %>
 
+  <!-- Serial Number input -->
   <%= f.input :serial_number, label_html: { class: 'text--form' } %>
-  <%= f.input :customer, label_html: { class: 'text--form' } %>
-  <%= f.input :device_type, collection: device_type, label_html: { class: 'text--form' } %>
+
+  <!-- Customer dropdown - List defined in app/helpers/customer_helper.rb -->
+  <!-- The .freeze method makes the array immutable to prevent accidental changes -->
+  <%= f.input :customer, collection: CustomerHelper::CUSTOMERS, label_html: { class: 'text--form' } %>
+
+  <!-- Device Type dropdown - List defined in app/helpers/device_type_helper.rb -->
+  <%= f.input :device_type, collection: DeviceTypeHelper::DEVICE_TYPES, label_html: { class: 'text--form' } %>
+
+  <!-- Field of View (FOV) - Numeric input -->
   <%= f.input :fov, input_html: { type: 'number' }, label_html: { class: 'text--form' } %>
 
+  <!-- Submit button -->
   <div class="text-center">
     <%= f.submit "Save", class: "btn btn-primary mb-4" %>
   </div>
