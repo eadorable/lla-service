@@ -11,7 +11,7 @@
             <p class="card-text"><strong>FoV(mm): </strong><%= @device.fov %></p>
             <p class="card-text"><strong>Device Number: </strong><%= @device.serial_number %></p>
             <p class="card-text"><strong>Customer: </strong><%= @device.customer %></p>
-            <!-- Add PDF download button -->
+            <!-- PDF download button -->
             <%= link_to "Download PDF", device_path(@device, format: :pdf), class: "btn btn-success mb-3" %>
           </div>
           <% if @device_records.present? %>
@@ -31,7 +31,7 @@
                   <% @device_records.each do |device_record| %>
 
                     <tr>
-                      <td><%= device_record.record_date.to_date%></td>
+                      <td><%= device_record.record_date.strftime("%d.%m.%Y") %></td>
                       <td><%= device_record.ticket_number %></td>
                       <td><%= device_record.customer_problem %></td>
                       <td><%= device_record.lla_diagnose %></td>

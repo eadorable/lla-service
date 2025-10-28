@@ -83,7 +83,7 @@ end
 
       @device_records.each do |record|
         table_data << [
-          record.record_date.to_date.to_s,
+          record.record_date.to_date.strftime("%d.%m.%Y"),
           record.ticket_number,
           record.customer_problem,
           record.lla_diagnose,
