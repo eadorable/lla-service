@@ -1,6 +1,6 @@
 class Device < ApplicationRecord
   belongs_to :user
-  has_many :records
+  has_many :records, dependent: :destroy
 
   validates :device_type, :serial_number, :customer, :fov, presence: true
   validates :serial_number, uniqueness: true

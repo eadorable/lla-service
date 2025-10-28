@@ -1,4 +1,6 @@
 class DevicesController < ApplicationController
+  require 'prawn'
+  require 'prawn/table'
 def index
   # If a search query is present, use the search scope
   if params[:query].present?
@@ -31,6 +33,11 @@ end
   def show
     @device = Device.find(params[:id])
     @device_records = Record.where(device_id: @device.id)
+    
+    respond_to do |format|
+      format.html
+      format.pdf { render_pdf }
+    end
   end
 
   def edit
@@ -53,7 +60,51 @@ end
   end
 
   private
+
+  def render_pdf
+    pdf = Prawn::Document.new
+    
+    # Title
+    pdf.text "Device Records", size: 20, style: :bold
+    pdf.move_down 10
+    
+    # Device Information
+    pdf.text "Device: #{@device.device_type}", size: 12
+    pdf.text "FoV(mm): #{@device.fov}", size: 12
+    pdf.text "Device Number: #{@device.serial_number}", size: 12
+    pdf.text "Customer: #{@device.customer}", size: 12
+    pdf.move_down 15
+    
+    # Records Table
+    if @device_records.present?
+      table_data = [
+        ["Date", "Ticket Number", "Customer Error", "LLA Diagnose", "Action"]
+      ]
+      
+      @device_records.each do |record|
+        table_data << [
+          record.record_date.to_date.to_s,
+          record.ticket_number,
+          record.customer_problem,
+          record.lla_diagnose,
+          record.action
+        ]
+      end
+      
+      pdf.table(table_data, width: 540) do |table|
+        table.header = true
+        table.row(0).font_style = :bold
+      end
+    else
+      pdf.text "No records available."
+    end
+    
+    send_data pdf.render, filename: "device_#{@device.serial_number}.pdf", type: "application/pdf"
+  end
+
   def device_params
     params.require(:device).permit(:device_type, :serial_number, :customer, :user_id, :fov)
   end
+
+
 end

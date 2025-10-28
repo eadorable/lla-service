@@ -57,7 +57,8 @@ gem "sassc-rails"
 gem 'ostruct'
 gem 'mutex_m'
 gem 'bigdecimal'
-
+gem 'prawn'
+gem 'prawn-table'
 
 group :development, :test do
   gem "dotenv-rails"
