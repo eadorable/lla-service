@@ -69,12 +69,12 @@ end
       image_width = 300 # width of your image
       center_x = (pdf.bounds.width - image_width) / 2
 
-      pdf.image("app/assets/images/header_logo.png", at: [center_x, pdf.bounds.top + 20], width: image_width)
+      pdf.image("app/assets/images/logo/header_logo.png", at: [center_x, pdf.bounds.top + 20], width: image_width)
     end
 
     # Footer
    # pdf.repeat(:all) do
-      #pdf.image("app/assets/images/footer_logo.png", at: [0, 30], width: 300)
+      #pdf.image("app/assets/images/logo/footer_logo.png", at: [0, 30], width: 300)
     # end
 
     # Adjust content area to avoid overlap with footer
